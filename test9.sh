@@ -6,19 +6,22 @@
 #Executes simultaenously to save time
 #$1 is the pass thru argument
 
-#12/4/19 testing BeeCount8Texture.py instead of BeeCount7.py
+
+
+
 for file in $1/*.h264; do
     
-    python3 /home/justin/code/bee/BeeCount9.py "$file" left & 
-    python3 /home/justin/code/bee/BeeCount9.py "$file" right &
+    python3 /PATH/BeeCount9.py "$file" left & 
+    python3 /PATH/BeeCount9.py "$file" right &
 
     
     wait
 done
 
-#Runs dataplot software
-python3 /home/justin/code/bee/Data.py "left" "$file" &
-python3 /home/justin/code/bee/Data.py "right" "$file" &
-python3 /home/justin/code/bee/DIFF.py "$file" &
-python3 /home/justin/code/bee/SMOOTH.py "$file" &
+#Runs dataplot software; replace PATH.
+
+python3 /PATH/Data.py "left" "$file" &
+python3 /PATH/Data.py "right" "$file" &
+python3 /PATH/DIFF.py "$file" &
+python3 /PATH/SMOOTH.py "$file" &
 wait
