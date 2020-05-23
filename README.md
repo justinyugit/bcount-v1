@@ -6,4 +6,4 @@
 
 	./test9.sh /home/YOUR_DIRECTORY
 
-<strong>Note: Our videos were only .h264 codec from Raspberry Pi Camera.</strong>
+<strong>Note: Videos were .h264 codec from a Raspberry Pi Camera @ 960x720 25fps. Paths of the individual python scripts must be modified in the ./test9.sh bash script before using. </strong>
