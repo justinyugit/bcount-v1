@@ -7,7 +7,7 @@
 #$1 is the pass thru argument
 
 
-
+#Runs beecount software; replace PATH.
 
 for file in $1/*.h264; do
     
