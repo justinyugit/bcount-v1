@@ -1,3 +1,7 @@
+# Records nonstop 20 min .h264 videos
+# Created June 2019
+# Written by Justin Yu
+
 import picamera
 from time import sleep
 import time

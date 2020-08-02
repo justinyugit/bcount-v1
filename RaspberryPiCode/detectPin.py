@@ -1,3 +1,8 @@
+# Detects 3V3 signal from MSP430 to signify status of cycles
+# Created April 2020
+# Written by Justin Yu
+
+
 import RPi.GPIO as GPIO
 from time import sleep
 import datetime

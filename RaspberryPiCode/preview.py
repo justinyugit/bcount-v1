@@ -1,3 +1,8 @@
+# Launches preview for in field / at home camera adjustments
+# Created June 2019
+# Written by Justin Yu
+
+
 import time
 import picamera
 camera=picamera.PiCamera()
