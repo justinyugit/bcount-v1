@@ -1,3 +1,7 @@
+# Takes averages to smooth out outliers in data for a cleaner graph
+# Created November 2019 
+# Written by Justin Yu
+
 import csv
 from matplotlib import pyplot as plt
 import sys

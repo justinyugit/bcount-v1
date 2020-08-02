@@ -1,3 +1,8 @@
+# Plots data stored in csv files by the Bee Counting software
+# Created August 2019
+# Written by Justin Yu
+
+
 import csv
 from matplotlib import pyplot as plt
 import sys

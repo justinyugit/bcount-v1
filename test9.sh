@@ -1,3 +1,7 @@
+# Parallelize python instances for multithreading
+# Created November 2019
+# Written by Justin Yu
+
 #Wipes the csv file from previous run
 #> /home/justin/code/bee/YL.csv
 #> /home/justin/code/bee/YR.csv

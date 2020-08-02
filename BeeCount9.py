@@ -1,3 +1,7 @@
+# Counts honey bees in video by differentiating static/dynamic pixels to subtract background.
+# Created November 2019
+# Written by Justin Yu
+
 ##  12/7/19: Cleaned Up BeeCount8Texture.py
 ##  Python3
 

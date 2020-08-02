@@ -1,3 +1,7 @@
+# Calculates difference between left and right feeder bee counts
+# Created November 2019
+# Written by Justin Yu
+
 import csv
 from matplotlib import pyplot as plt
 import sys
