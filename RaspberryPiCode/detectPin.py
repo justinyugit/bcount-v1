@@ -14,7 +14,7 @@ try:
     while(True):
         dateString = str(datetime.datetime.now())
         if(GPIO.input(18)):
-            sugarname = 'date +%Y%m%d_%H%M%S >> /mnt/usb/water{}.txt'.format(datetime.date.today())
+            sugarname = 'date +%Y%m%d_%H%M%S >> /mnt/usb/sugar{}.txt'.format(datetime.date.today())
             os.system(sugarname)
         elif(GPIO.input(18)==0):
             watername = 'date +%Y%m%d_%H%M%S >> /mnt/usb/water{}.txt'.format(datetime.date.today())
