@@ -1,8 +1,3 @@
-# Detects 3V3 signal from MSP430 to signify status of cycles
-# Created April 2020
-# Written by Justin Yu
-
-
 import RPi.GPIO as GPIO
 from time import sleep
 import datetime
@@ -19,9 +14,11 @@ try:
     while(True):
         dateString = str(datetime.datetime.now())
         if(GPIO.input(18)):
-            os.system('date +"%Y%m%d_%H%M%S" >> /mnt/usb/sugar.txt')
+            sugarname = 'date +%Y%m%d_%H%M%S >> /mnt/usb/water{}.txt'.format(datetime.date.today())
+            os.system(sugarname)
         elif(GPIO.input(18)==0):
-            os.system('date +"%Y%m%d_%H%M%S" >> /mnt/usb/water.txt')
+            watername = 'date +%Y%m%d_%H%M%S >> /mnt/usb/water{}.txt'.format(datetime.date.today())
+            os.system(watername)
         sleep(60)
 
 except:
