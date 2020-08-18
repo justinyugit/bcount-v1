@@ -69,6 +69,74 @@ for val in Y:
         YPLOT.append(val)
 
 
-for yIndex in range(len(YPLOT)):
-    if(YPLOT[yIndex]!=YPLOT[yIndex+1]):
-        print(YPLOT[yIndex])
+WaterTotal=0
+SugarTotal=0
+WATERCYCLES=[]
+SUGARCYCLES=[]
+
+Cycles = []
+
+for index in range(len(YPLOT)):
+    try:
+        if(YPLOT[index]!=YPLOT[index+1]):
+            Cycles.append(YPLOT[index])
+    except:
+        Cycles.append(YPLOT[index])
+
+
+for index in range(len(YPLOT)):
+    if(YPLOT[index]==0):
+        try:
+            WaterTotal=WaterTotal+yLFlat[index]
+        except:
+            pass
+        try:
+            if(YPLOT[index]!=YPLOT[index+1]):
+                WATERCYCLES.append(WaterTotal)
+                print(str(WaterTotal) + "water")
+                WaterTotal=0
+        except:
+            WATERCYCLES.append(WaterTotal)
+            print(str(WaterTotal) + "water")
+            WaterTotal=0
+    elif(YPLOT[index]==1):
+        try:
+            SugarTotal=SugarTotal+yLFlat[index]
+        except:
+            pass
+        try:
+            if(YPLOT[index]!=YPLOT[index+1]):
+                SUGARCYCLES.append(SugarTotal)
+                print(str(SugarTotal) + "Sugar")
+                SugarTotal=0
+        except:
+            SUGARCYCLES.append(SugarTotal)
+            print(str(SugarTotal) + "Sugar")
+            SugarTotal=0
+
+
+Labels = []
+Bars = []
+
+countSugar = 1
+countWater = 1
+for val in Cycles:
+    if(val==0):
+        Labels.append("Water" + str(countWater))
+        Bars.append(WATERCYCLES[countWater-1])
+        countWater=countWater+1
+    elif(val==1):
+        Labels.append("Sugar" + str(countSugar))
+        Bars.append(SUGARCYCLES[countSugar-1])
+        countSugar=countSugar+1
+
+for val in Labels:
+    print(val)
+plt.barh(Labels,Bars)
+for index, value in enumerate(Bars):
+    plt.text(value, index, str(int(value)))
+
+
+plt.title(Date)
+plt.xlabel("Total bees from each video frame per cycle")
+plt.show()
