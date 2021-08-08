@@ -58,6 +58,8 @@ if (INIT_PUMPS):
         if (elapsed >= L_REWARD_PUMP_INIT_DURATION):
             GPIO.output(25, False)
             all_5_counter-=1
+else:
+    # Read from schedule and do stuff
 
 
 ### Start test or run cycles
