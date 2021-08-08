@@ -13,10 +13,10 @@ CYCLE_DURATION_TEST = 100 # seconds #
 CYCLE_DURATION_RUN = 0 # seconds; read from schedule #
 WASH_PUMP_INIT_DURATION = 10 # seconds; for priming #
 WASH_PUMP_RUN_DURATION = 10 # seconds #
-R_REWARD_PUMP_INIT_DURATION = 10 # seconds #
-R_PUNISH_PUMP_INIT_DURATION = 10 # seconds #
-L_REWARD_PUMP_INIT_DURATION = 10 # seconds #
-L_PUNISH_PUMP_INIT_DURATION = 10 # seconds #
+R_REWARD_PUMP_INIT_DURATION = 10 # seconds; for priming #
+R_PUNISH_PUMP_INIT_DURATION = 10 # seconds; for priming #
+L_REWARD_PUMP_INIT_DURATION = 10 # seconds; for priming #
+L_PUNISH_PUMP_INIT_DURATION = 10 # seconds; for priming #
 
 ###########################################################
 
