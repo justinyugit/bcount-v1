@@ -34,13 +34,43 @@ GPIO.setup(25, GPIO.OUT) # L_Reward_Pump
 GPIO.setup(18, GPIO.OUT) # R_Coil_On
 GPIO.setup(23, GPIO.OUT) # L_Coil_On
 
-GPIO.output(12 , False)
-GPIO.output(17 , False)
-GPIO.output(4 , False)
-GPIO.output(24 , False)
-GPIO.output(25 , False)
-GPIO.output(18 , False)
-GPIO.output(23 , False)
+def turn_on_wash():
+    GPIO.output(12, True)
+def turn_off_wash():
+    GPIO.output(12, False)
+def turn_on_r_punish():
+    GPIO.output(17, True)
+def turn_off_r_punish():
+    GPIO.output(17, False)
+def turn_on_r_reward():
+    GPIO.output(4, True)
+def turn_off_r_reward():
+    GPIO.output(4, False)
+def turn_on_l_punish():
+    GPIO.output(24, True)
+def turn_off_l_punish():
+    GPIO.output(24, False)
+def turn_on_l_reward():
+    GPIO.output(25, True)
+def turn_off_l_reward():
+    GPIO.output(25, False)
+def turn_on_r_coil():
+    GPIO.output(18, True)
+def turn_off_r_coil():
+    GPIO.output(18, False)
+def turn_on_l_coil():
+    GPIO.output(23, True)
+def turn_off_l_coil():
+    GPIO.output(23, False)
+
+
+turn_off_wash()
+turn_off_r_punish()
+turn_off_l_punish()
+turn_off_r_reward()
+turn_off_l_reward()
+turn_off_l_coil()
+turn_off_r_coil()
 
 ###########################################################
 
@@ -48,29 +78,31 @@ GPIO.output(23 , False)
 ### Initialize and prime pumps
 
 if (INIT_PUMPS):
-    GPIO.output(12, True)
-    GPIO.output(17, True)
-    GPIO.output(4, True)
-    GPIO.output(24, True)
-    GPIO.output(25, True)
+
+    turn_on_wash()
+    turn_on_r_punish()
+    turn_on_r_reward()
+    turn_on_l_punish()
+    turn_on_l_reward()
+
     all_5_counter = 5
     start_time = time.time()
     while (all_5_counter):
         elapsed = time.time()-start_time
         if (elapsed >= WASH_PUMP_INIT_DURATION):
-            GPIO.output(12, False)
+            turn_off_wash()
             all_5_counter-=1
         if (elapsed >= R_REWARD_PUMP_INIT_DURATION):
-            GPIO.output(4, False)
+            turn_off_r_reward()
             all_5_counter-=1
         if (elapsed >= R_PUNISH_PUMP_INIT_DURATION):
-            GPIO.output(17, False)
+            turn_off_r_punish()
             all_5_counter-=1
         if (elapsed >= L_PUNISH_PUMP_INIT_DURATION):
-            GPIO.output(24, False)
+            turn_off_l_punish()
             all_5_counter-=1
         if (elapsed >= L_REWARD_PUMP_INIT_DURATION):
-            GPIO.output(25, False)
+            turn_off_l_reward()
             all_5_counter-=1
 else:
     print("not initializing pumps")
@@ -93,34 +125,35 @@ while(True):
             CYCLE_FLAG = random.randrange(2)
 
             # Wash out precycle
-            GPIO.output(12, True)
+            turn_on_wash()
             time.sleep(WASH_PUMP_RUN_DURATION)
-            GPIO.output(12, False)
+            turn_off_wash()
 
 
             path = ""
             if(CYCLE_FLAG):
                 path = "/mnt/usb/L" + name + ".h264"
-                GPIO.output(23, True) # Turn on Left Coil
+                turn_on_l_coil()
 
-                GPIO.output(25, True) # Turn on Left Reward Pump
+                turn_on_l_reward()
                 time.sleep(REWARD_DURATION_RUN)
-                GPIO.output(25, False) # Turn off Left Reward Pump
-
-                GPIO.output(17, True) # Turn on Right Punish Pump
+                turn_off_l_reward()
+    
+                turn_on_r_punish()
                 time.sleep(PUNISH_DURATION_RUN)
-                GPIO.output(17, False) # Turn off Right Punish Pump
+                turn_off_r_punish()
+
             else:
                 path = "/mnt/usb/R" + name + ".h264"
-                GPIO.output(18, True) # Turn on Right Coil
+                turn_on_r_coil()
                 
-                GPIO.output(4, True) # Turn on Right Reward Pump
+                turn_on_r_reward()
                 time.sleep(REWARD_DURATION_RUN)
-                GPIO.output(4, False) # Turn off Right Reward Pump
+                turn_off_r_reward()
 
-                GPIO.output(24, True) # Turn on Left Punish Pump
+                turn_on_l_punish()
                 time.sleep(PUNISH_DURATION_RUN)
-                GPIO.output(24, False) # Turn off Left Punish Pump
+                turn_off_l_punish()
                     
 
             camera.start_recording(path)
@@ -131,8 +164,9 @@ while(True):
             camera.stop_recording()
 
             # Make sure both coils are off regardless
-            GPIO.output(18, False)
-            GPIO.output(23, False)
+            turn_off_l_coil()
+            turn_off_r_coil()
+            
                 
     except:
         print("failed")
