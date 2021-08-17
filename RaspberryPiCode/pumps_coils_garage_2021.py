@@ -78,7 +78,9 @@ else:
 
 ### Start test or run cycles
 
-CYCLE_FLAG = 0
+
+
+CYCLE_FLAG = 0 # If 0, Right, if 1, Left
 while(True):
     try:
         with picamera.PiCamera() as camera:
