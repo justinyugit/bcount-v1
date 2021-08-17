@@ -80,61 +80,58 @@ else:
 
 CYCLE_FLAG = 0
 while(True):
-    if(TEST):
-        time.sleep(CYCLE_DURATION_TEST)
-        GPIO.output(12, True)
-        time.sleep(WASH_PUMP_RUN_DURATION)
-        GPIO.output(12, False)
-    else:
-        try:
-            with picamera.PiCamera() as camera:
-                camera.framerate = 25
-                camera.resolution = (960,720)
-                name = str(time.strftime("%m-%d-%Y_%H%M%S"))
+    try:
+        with picamera.PiCamera() as camera:
+            camera.framerate = 25
+            camera.resolution = (960,720)
+            name = str(time.strftime("%m-%d-%Y_%H%M%S"))
 
-                # IF RANDOM YIELDS 1 -> Left
-                # IF RANDOM YIELDS 0 -> Right
-                CYCLE_FLAG = random.randrange(2)
+            # IF RANDOM YIELDS 1 -> Left
+            # IF RANDOM YIELDS 0 -> Right
+            CYCLE_FLAG = random.randrange(2)
 
-                # Wash out precycle
-                GPIO.output(12, True)
-                time.sleep(WASH_PUMP_RUN_DURATION)
-                GPIO.output(12, False)
+            # Wash out precycle
+            GPIO.output(12, True)
+            time.sleep(WASH_PUMP_RUN_DURATION)
+            GPIO.output(12, False)
 
 
-                path = ""
-                if(CYCLE_FLAG):
-                    path = "/mnt/usb/L" + name + ".h264"
-                    GPIO.output(23, True) # Turn on Left Coil
+            path = ""
+            if(CYCLE_FLAG):
+                path = "/mnt/usb/L" + name + ".h264"
+                GPIO.output(23, True) # Turn on Left Coil
 
-                    GPIO.output(25, True) # Turn on Left Reward Pump
-                    time.sleep(REWARD_DURATION_RUN)
-                    GPIO.output(25, False) # Turn off Left Reward Pump
+                GPIO.output(25, True) # Turn on Left Reward Pump
+                time.sleep(REWARD_DURATION_RUN)
+                GPIO.output(25, False) # Turn off Left Reward Pump
 
-                    GPIO.output(17, True) # Turn on Right Punish Pump
-                    time.sleep(PUNISH_DURATION_RUN)
-                    GPIO.output(17, False) # Turn off Right Punish Pump
-                else:
-                    path = "/mnt/usb/R" + name + ".h264"
-                    GPIO.output(18, True) # Turn on Right Coil
+                GPIO.output(17, True) # Turn on Right Punish Pump
+                time.sleep(PUNISH_DURATION_RUN)
+                GPIO.output(17, False) # Turn off Right Punish Pump
+            else:
+                path = "/mnt/usb/R" + name + ".h264"
+                GPIO.output(18, True) # Turn on Right Coil
+                
+                GPIO.output(4, True) # Turn on Right Reward Pump
+                time.sleep(REWARD_DURATION_RUN)
+                GPIO.output(4, False) # Turn off Right Reward Pump
 
-                    GPIO.output(4, True) # Turn on Right Reward Pump
-                    time.sleep(REWARD_DURATION_RUN)
-                    GPIO.output(4, False) # Turn off Right Reward Pump
-
-                    GPIO.output(24, True) # Turn on Left Punish Pump
-                    time.sleep(PUNISH_DURATION_RUN)
-                    GPIO.output(24, False) # Turn off Left Punish Pump
+                GPIO.output(24, True) # Turn on Left Punish Pump
+                time.sleep(PUNISH_DURATION_RUN)
+                GPIO.output(24, False) # Turn off Left Punish Pump
                     
 
-                camera.start_recording(path)
+            camera.start_recording(path)
+            if(TEST):
+                time.sleep(CYCLE_DURATION_TEST)
+            else:
                 time.sleep(CYCLE_DURATION_RUN)
-                camera.stop_recording()
+            camera.stop_recording()
 
-                # Make sure both coils are off regardless
-                GPIO.output(18, False)
-                GPIO.output(23, False)
+            # Make sure both coils are off regardless
+            GPIO.output(18, False)
+            GPIO.output(23, False)
                 
-        except:
-            print("failed")
+    except:
+        print("failed")
 
